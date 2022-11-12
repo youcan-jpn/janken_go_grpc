@@ -1,0 +1,8 @@
+version: '3'
+services:
+  janken-dev:
+    build: ./docker/go/
+    container_name: janken_go_grpc
+    volumes:
+      - .:/janken_go_grpc
+    tty: true
