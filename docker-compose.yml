@@ -3,6 +3,8 @@ services:
   janken-dev:
     build: ./docker/go/
     container_name: janken_go_grpc
+    ports:
+      - "50051:50051"
     volumes:
       - .:/janken_go_grpc
     tty: true
