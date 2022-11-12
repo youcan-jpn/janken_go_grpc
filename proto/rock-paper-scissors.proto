@@ -1,0 +1,51 @@
+syntax = "proto3";
+
+package game;
+
+option go_package = "pb/;pb";
+
+service RockPaperScissorsService {
+    rpc PlayGame (PlayRequest) returns (PlayResponse) {}
+    rpc ShowHistory (ShowRequest) returns (ShowResponse) {}
+}
+
+enum HandShape {
+    HAND_SHAPES_UNKNOWN = 0;
+    ROCK = 1;
+    PAPER = 2;
+    SCISSORS = 3;
+}
+
+enum Result {
+    RESULT_UNKNOWN = 0;
+    WIN = 1;
+    LOSE = 2;
+    DRAW = 3;
+}
+
+message MatchResult {
+    HandShape yourHandShape = 1;
+    HandShape opponentHandShape = 2;
+    Result result = 3;
+    string created_at = 4;
+}
+
+message PlayRequest {
+    HandShape handshape = 1;
+}
+
+message PlayResponse {
+    MatchResult matchResult = 1;
+}
+
+message History {
+    int32 numberOfGames = 1;
+    int32 numberOfWins = 2;
+    repeated MatchResult matchResults = 3;
+}
+
+message ShowRequest {}
+
+message ShowResponse {
+    History history = 1;
+}
