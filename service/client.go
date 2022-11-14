@@ -8,6 +8,8 @@ import (
 
 	"google.golang.org/grpc"
 
+	"github.com/gookit/color"
+
 	"github.com/youcan-jpn/janken_go_grpc/pb"
 	"github.com/youcan-jpn/janken_go_grpc/pkg"
 )
@@ -43,11 +45,44 @@ func PlayGame(handShape int32) {
 	}
 	matchResult := reply.GetMatchResult()
 	fmt.Println("***********************************")
-	fmt.Printf("Your hand shapes: %s \n", matchResult.YourHandShape.String())
-	fmt.Printf("Opponent hand shapes: %s \n", matchResult.OpponentHandShape.String())
-	fmt.Printf("Result: %s \n", matchResult.Result.String())
+	printResult(
+		matchResult.YourHandShape.String(),
+		matchResult.OpponentHandShape.String(),
+		matchResult.Result.String())
 	fmt.Println("***********************************")
 	fmt.Println()
+}
+
+func printResult(yourHand string, opponentHand string, result string) {
+	color.Printf("Your hand shape: %s\n", colorfulHand(yourHand))
+	color.Printf("Opponent hand shape: %s\n", colorfulHand(opponentHand))
+	color.Printf("Result: %s\n", colorfulResult(result))
+}
+
+func colorfulHand(hand string) string {
+	switch hand {
+	case "ROCK":
+		return "<red>Rock</>"
+	case "PAPER":
+		return "<cyan>Paper</>"
+	case "SCISSORS":
+		return "<green>Scissors</>"
+	default:
+		return hand
+	}
+}
+
+func colorfulResult(result string) string {
+	switch result {
+	case "WIN":
+		return "<red>WIN</>"
+	case "DRAW":
+		return "<default>DRAW</>"
+	case "LOSE":
+		return "<blue>LOSE</>"
+	default:
+		return "UNKNOWN RESULT"
+	}
 }
 
 func ShowMatchResults() {

@@ -6,6 +6,8 @@ import (
 	"os"
 	"strconv"
 
+	"github.com/gookit/color"
+
 	"github.com/youcan-jpn/janken_go_grpc/service"
 )
 
@@ -18,17 +20,17 @@ func main() {
 		fmt.Println("1: Play game")
 		fmt.Println("2: Show history")
 		fmt.Println("3: exit")
-		fmt.Print("please enter >")
+		fmt.Print("please enter > ")
 
 		scanner.Scan()
 		in := scanner.Text()
 
 		switch in {
 		case "1":
-			fmt.Println("Please enter Rock, Paper, or Scissors.")
-			fmt.Println("1: Rock")
-			fmt.Println("2: Paper")
-			fmt.Println("3: Scissors")
+			color.Println("Please enter <red>Rock</>, <cyan>Paper</>, or <green>Scissors</>.")
+			color.Red.Println("1: Rock")
+			color.Cyan.Println("2: Paper")
+			color.Green.Println("3: Scissors")
 			fmt.Print("please enter >")
 
 			scanner.Scan()
@@ -36,6 +38,7 @@ func main() {
 			switch hand_str {
 			case "1", "2", "3":
 				hand_int, _ := strconv.Atoi(hand_str)
+				fmt.Println("")
 				service.PlayGame(int32(hand_int))
 			default:
 				fmt.Println("Invalid command.")
